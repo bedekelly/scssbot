@@ -32,17 +32,19 @@ body {{
 </html>
 """
 
+local = False
+browserCommand = '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"' if local else "chromium-browser"
 command_template = (
-    'chromium-browser {headless} --screenshot={output_filename} --no-sandbox '
+    '%s {headless} --screenshot={output_filename} --no-sandbox '
     "--hide-scrollbars --window-size=512,512 --default-background-color=0 {filename}"
-)
+) % browserCommand
 
 
 def compile_styles(raw_scss):
     return sass.compile(string=raw_scss)
 
 
-def take_screenshot(raw_styles, debug=True):
+def take_screenshot(raw_styles, debug=False):
     wrapped_styles = f".r {{{raw_styles}}}"
     compiled_styles = compile_styles(wrapped_styles)
     rendered_html = default_page.format(styles=compiled_styles)
@@ -81,4 +83,5 @@ test_thing = """
     }
 """
 
-take_screenshot(test_thing, debug=False)
+if __name__ == "__main__":
+    take_screenshot(test_thing, debug=True)

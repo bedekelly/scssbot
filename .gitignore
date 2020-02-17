@@ -1,2 +1,4 @@
 .idea
 venv
+keys.py
+__pycache__
