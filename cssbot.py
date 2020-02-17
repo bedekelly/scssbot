@@ -21,12 +21,21 @@ body {{
   height: 512px;
 }}
 
+.parent {{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}}
+
 {styles}
 </style>
 <head>
 <body>
 
-<div class="r"></div>
+<div class="parent">
+    <div class="r"></div>
+</div>
 
 </body>
 </html>
@@ -45,7 +54,7 @@ def compile_styles(raw_scss):
 
 
 def take_screenshot(raw_styles, debug=False):
-    wrapped_styles = f".r {{{raw_styles}}}"
+    wrapped_styles = f".r {{ width: 100%; height: 100%; {raw_styles}}}"
     compiled_styles = compile_styles(wrapped_styles)
     rendered_html = default_page.format(styles=compiled_styles)
 
@@ -67,18 +76,15 @@ test_thing = """
     width: 50px;
     height: 50px;
     margin: 0 auto;
-    margin-top: 50%;
-    transform: translateY(-50%);
     position: relative;
+    display: grid;
+    place-items: center;
     
     &:before {
-        position: absolute;
         background: blue;
         width: 10px;
         height: 10px;
         display: block;
-        top: 0;
-        left: 0;
         content: '';
     }
 """
