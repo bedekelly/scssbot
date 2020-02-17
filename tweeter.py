@@ -24,16 +24,17 @@ while True:
         requested_styles = mention.full_text.replace("@scssbot", "")
         try:
             image_filename = take_screenshot(requested_styles)
-        except sass.CompileError:
+        except sass.CompileError as e:
             api.update_status(
-                "Sorry, we couldn't render your SCSS code 😔",
+                ("Sorry, we couldn't render your SCSS code 😔 "
+                 + str(e)),
                 in_reply_to_status_id=mention.id,
                 auto_populate_reply_metadata=True,
             )
         else:
             image_media = api.media_upload(image_filename)
             api.update_status(
-                f"@{mention.user.screen_name}Here's your rendered SCSS!",
+                f"@{mention.user.screen_name} Here's your rendered SCSS!",
                 in_reply_to_status_id=mention.id,
                 auto_populate_reply_metadata=True,
                 media_ids=[image_media.media_id],
