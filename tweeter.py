@@ -25,6 +25,7 @@ while True:
         try:
             image_filename = take_screenshot(requested_styles)
         except sass.CompileError as e:
+            print(e)
             api.update_status(
                 ("Sorry, we couldn't render your SCSS code 😔 "
                  + str(e)),
