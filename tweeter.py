@@ -33,7 +33,7 @@ while True:
         else:
             image_media = api.media_upload(image_filename)
             api.update_status(
-                "Here's your rendered SCSS!",
+                f"@{mention.user.screen_name}Here's your rendered SCSS!",
                 in_reply_to_status_id=mention.id,
                 auto_populate_reply_metadata=True,
                 media_ids=[image_media.media_id],
