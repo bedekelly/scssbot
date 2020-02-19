@@ -19,7 +19,7 @@ print("Listening for new tweets!")
 while True:
     mentions = api.mentions_timeline(last_id, tweet_mode="extended")
     for mention in reversed(mentions):
-        if mention.is_quote_status:
+        if mention.is_quote_status or "Here's your rendered SCSS!" in mention.full_text:
             continue
 
         requested_styles = html.unescape(mention.full_text.replace("@scssbot", ""))
