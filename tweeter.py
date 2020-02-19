@@ -42,4 +42,4 @@ while True:
             )
 
         last_id = mention.id
-    time.sleep(5)
+    time.sleep(10)
