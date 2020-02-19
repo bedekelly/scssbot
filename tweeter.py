@@ -1,3 +1,4 @@
+import html
 import time
 
 import sass
@@ -21,7 +22,7 @@ while True:
         if mention.is_quote_status:
             continue
 
-        requested_styles = mention.full_text.replace("@scssbot", "")
+        requested_styles = html.unescape(mention.full_text.replace("@scssbot", ""))
         try:
             image_filename = take_screenshot(requested_styles)
         except sass.CompileError as e:
